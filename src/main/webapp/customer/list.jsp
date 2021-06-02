@@ -11,6 +11,7 @@
     <input type="text" placeholder="search" name="q">
     <button>Search</button>
 </form>
+<button><a href="/customers?sort=true">Sort</a></button>
 <table>
     <tr>
         <td>Id</td>

@@ -39,4 +39,9 @@ public class CustomerService implements ICustomerService {
     public List<Customer> findAllCustomerByAddress(String address) {
         return customerDAO.findAllCustomerByAddress(address);
     }
+
+    @Override
+    public List<Customer> sortAllCustomer() {
+        return customerDAO.sortAllCustomer();
+    }
 }

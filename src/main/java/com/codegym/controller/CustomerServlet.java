@@ -53,6 +53,10 @@ public class CustomerServlet extends HttpServlet {
         }else {
             customers = customerService.findAllCustomerByAddress(query);
         }
+        String sort = request.getParameter("sort");
+        if(sort != null){
+            customers = customerService.sortAllCustomer();
+        }
         request.setAttribute("customers", customers);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/customer/list.jsp");
         dispatcher.forward(request, response);
