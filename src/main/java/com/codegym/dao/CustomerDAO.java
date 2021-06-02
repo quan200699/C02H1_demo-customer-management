@@ -2,10 +2,7 @@ package com.codegym.dao;
 
 import com.codegym.model.Customer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +11,7 @@ public class CustomerDAO implements ICustomerDAO {
     public static final String SELECT_CUSTOMER_BY_ID = "select * from customer where id = ?";
     public static final String INSERT_CUSTOMER = "insert into customer (name, address) VALUE (?, ?)";
     public static final String UPDATE_CUSTOMER_BY_ID = "update customer set name = ?, address = ? where id = ?";
-    public static final String FIND_CUSTOMER_BY_ADDRESS = "select * from customer where address like ?";
+    public static final String FIND_CUSTOMER_BY_ADDRESS = "Call findCustomerByAddress(?)";
     public static final String SELECT_ALL_CUSTOMER_ORDER_BY = "select * from customer order by name desc";
 
     @Override
@@ -97,9 +94,9 @@ public class CustomerDAO implements ICustomerDAO {
         List<Customer> customers = new ArrayList<>();
         Connection connection = SQLConnection.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_CUSTOMER_BY_ADDRESS);
-            preparedStatement.setString(1, "%" + address + "%");
-            ResultSet resultSet = preparedStatement.executeQuery();
+            CallableStatement callableStatement = connection.prepareCall(FIND_CUSTOMER_BY_ADDRESS);
+            callableStatement.setString(1, "%" + address + "%");
+            ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
