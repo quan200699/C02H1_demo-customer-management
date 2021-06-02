@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "CustomerServlet", value = "/customers")
@@ -45,7 +46,13 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void showListCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Customer> customers = customerService.findAll();
+        String query = request.getParameter("q");
+        List<Customer> customers;
+        if(query == null || query.equals("")){
+            customers = customerService.findAll();
+        }else {
+            customers = customerService.findAllCustomerByAddress(query);
+        }
         request.setAttribute("customers", customers);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/customer/list.jsp");
         dispatcher.forward(request, response);

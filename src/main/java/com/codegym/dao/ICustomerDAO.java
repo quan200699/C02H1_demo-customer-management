@@ -14,4 +14,6 @@ public interface ICustomerDAO {
     boolean updateCustomerInfo(int id, Customer customer);
 
     boolean deleteCustomer(int id);
+
+    List<Customer> findAllCustomerByAddress(String address);
 }

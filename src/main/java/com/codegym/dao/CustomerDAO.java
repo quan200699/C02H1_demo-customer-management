@@ -14,6 +14,7 @@ public class CustomerDAO implements ICustomerDAO {
     public static final String SELECT_CUSTOMER_BY_ID = "select * from customer where id = ?";
     public static final String INSERT_CUSTOMER = "insert into customer (name, address) VALUE (?, ?)";
     public static final String UPDATE_CUSTOMER_BY_ID = "update customer set name = ?, address = ? where id = ?";
+    public static final String FIND_CUSTOMER_BY_ADDRESS = "select * from customer where address like ?";
 
     @Override
     public List<Customer> findAll() {
@@ -42,7 +43,7 @@ public class CustomerDAO implements ICustomerDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CUSTOMER_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 String name = resultSet.getString("name");
                 String address = resultSet.getString("address");
                 customer.setName(name);
@@ -88,5 +89,25 @@ public class CustomerDAO implements ICustomerDAO {
     @Override
     public boolean deleteCustomer(int id) {
         return false;
+    }
+
+    @Override
+    public List<Customer> findAllCustomerByAddress(String address) {
+        List<Customer> customers = new ArrayList<>();
+        Connection connection = SQLConnection.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_CUSTOMER_BY_ADDRESS);
+            preparedStatement.setString(1, "%" + address + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String address1 = resultSet.getString("address");
+                customers.add(new Customer(id, name, address1));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return customers;
     }
 }

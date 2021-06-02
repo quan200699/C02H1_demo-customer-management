@@ -34,4 +34,9 @@ public class CustomerService implements ICustomerService {
     public boolean deleteById(int id) {
         return customerDAO.deleteCustomer(id);
     }
+
+    @Override
+    public List<Customer> findAllCustomerByAddress(String address) {
+        return customerDAO.findAllCustomerByAddress(address);
+    }
 }

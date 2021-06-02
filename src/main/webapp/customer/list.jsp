@@ -7,6 +7,10 @@
 <body>
 <h1>List Customer</h1>
 <a href="/customers?action=create">Create new customer</a>
+<form>
+    <input type="text" placeholder="search" name="q">
+    <button>Search</button>
+</form>
 <table>
     <tr>
         <td>Id</td>
