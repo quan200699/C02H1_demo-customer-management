@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDetailDAO implements IOderDetailDAO {
+public class OrderDetailDAO implements IOrderDetailDAO {
     public static final String SELECT_ALL_ORDER_DETAILS = "select * from order_details";
     public static final String SELECT_CUSTOMER_BY_ID = "select * from order_details where id = ?";
     public static final String INSERT_ORDER_DETAILS = "insert into order_details (customerId, amount, price) VALUE (?, ?, ?)";

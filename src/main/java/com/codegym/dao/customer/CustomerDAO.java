@@ -13,6 +13,7 @@ public class CustomerDAO implements ICustomerDAO {
     public static final String INSERT_CUSTOMER = "insert into customer (name, address) VALUE (?, ?)";
     public static final String UPDATE_CUSTOMER_BY_ID = "update customer set name = ?, address = ? where id = ?";
     public static final String FIND_CUSTOMER_BY_ADDRESS = "Call findCustomerByAddress(?)";
+    public static final String DELETE_CUSTOMER_PROCEDURE = "Call delete_customer(?)";
     public static final String SELECT_ALL_CUSTOMER_ORDER_BY = "select * from customer order by name desc";
     public static final String DELETE_CUSTOMER_BY_ID = "delete from customer where id = ?";
 
@@ -91,9 +92,9 @@ public class CustomerDAO implements ICustomerDAO {
         Connection connection = SQLConnection.getConnection();
         int rowDeleted = 0;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CUSTOMER_BY_ID);
-            preparedStatement.setInt(1, id);
-            rowDeleted = preparedStatement.executeUpdate();
+            CallableStatement callableStatement = connection.prepareCall(DELETE_CUSTOMER_PROCEDURE);
+            callableStatement.setInt(1, id);
+            rowDeleted = callableStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

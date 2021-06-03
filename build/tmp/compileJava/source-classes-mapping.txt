@@ -1,20 +1,30 @@
-com/codegym/service/customer/ICustomerService.java
- com.codegym.service.customer.ICustomerService
 com/codegym/model/Customer.java
  com.codegym.model.Customer
+com/codegym/dao/orderDetail/OrderDetailDAO.java
+ com.codegym.dao.orderDetail.OrderDetailDAO
+com/codegym/service/orderDetail/IOrderDetailService.java
+ com.codegym.service.orderDetail.IOrderDetailService
+com/codegym/dao/customer/ICustomerDAO.java
+ com.codegym.dao.customer.ICustomerDAO
+com/codegym/service/orderDetail/OrderDetailService.java
+ com.codegym.service.orderDetail.OrderDetailService
+com/codegym/model/OrderDetail.java
+ com.codegym.model.OrderDetail
+com/codegym/service/customer/ICustomerService.java
+ com.codegym.service.customer.ICustomerService
+com/codegym/controller/OrderDetailServlet.java
+ com.codegym.controller.OrderDetailServlet
 com/codegym/service/IGeneralService.java
  com.codegym.service.IGeneralService
 com/codegym/service/customer/CustomerService.java
  com.codegym.service.customer.CustomerService
-com/codegym/dao/customer/CustomerDAO.java
- com.codegym.dao.customer.CustomerDAO
-com/codegym/dao/IGeneralDAO.java
- com.codegym.dao.IGeneralDAO
-com/codegym/dao/customer/ICustomerDAO.java
- com.codegym.dao.customer.ICustomerDAO
-com/codegym/dao/SQLConnection.java
- com.codegym.dao.SQLConnection
-com/codegym/model/OrderDetail.java
- com.codegym.model.OrderDetail
 com/codegym/controller/CustomerServlet.java
  com.codegym.controller.CustomerServlet
+com/codegym/dao/orderDetail/IOrderDetailDAO.java
+ com.codegym.dao.orderDetail.IOrderDetailDAO
+com/codegym/dao/IGeneralDAO.java
+ com.codegym.dao.IGeneralDAO
+com/codegym/dao/SQLConnection.java
+ com.codegym.dao.SQLConnection
+com/codegym/dao/customer/CustomerDAO.java
+ com.codegym.dao.customer.CustomerDAO

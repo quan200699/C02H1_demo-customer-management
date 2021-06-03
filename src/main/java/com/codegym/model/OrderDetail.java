@@ -9,6 +9,12 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
+    public OrderDetail(int customerId, int amount, float price) {
+        this.customerId = customerId;
+        this.amount = amount;
+        this.price = price;
+    }
+
     public OrderDetail(int id, int customerId, int amount, float price) {
         this.id = id;
         this.customerId = customerId;
