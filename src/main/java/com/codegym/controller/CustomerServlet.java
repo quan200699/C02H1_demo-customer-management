@@ -28,10 +28,24 @@ public class CustomerServlet extends HttpServlet {
             case "edit":
                 showEditCustomerForm(request, response);
                 break;
+            case "delete":
+                deleteCustomer(request, response);
+                break;
             default:
                 showListCustomer(request, response);
                 break;
         }
+    }
+
+    private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Customer customer = customerService.findById(id);
+        if(customer == null){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("error-404.jsp");
+            dispatcher.forward(request, response);
+        }
+        customerService.deleteById(id);
+        response.sendRedirect("/customers");
     }
 
     private void showEditCustomerForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -13,6 +13,7 @@ public class CustomerDAO implements ICustomerDAO {
     public static final String UPDATE_CUSTOMER_BY_ID = "update customer set name = ?, address = ? where id = ?";
     public static final String FIND_CUSTOMER_BY_ADDRESS = "Call findCustomerByAddress(?)";
     public static final String SELECT_ALL_CUSTOMER_ORDER_BY = "select * from customer order by name desc";
+    public static final String DELETE_CUSTOMER_BY_ID = "delete from customer where id = ?";
 
     @Override
     public List<Customer> findAll() {
@@ -86,7 +87,16 @@ public class CustomerDAO implements ICustomerDAO {
 
     @Override
     public boolean deleteCustomer(int id) {
-        return false;
+        Connection connection = SQLConnection.getConnection();
+        int rowDeleted = 0;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CUSTOMER_BY_ID);
+            preparedStatement.setInt(1, id);
+            rowDeleted = preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return rowDeleted != 0;
     }
 
     @Override
