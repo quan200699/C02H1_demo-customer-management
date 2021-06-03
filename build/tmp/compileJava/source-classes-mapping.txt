@@ -6,8 +6,8 @@ com/codegym/service/IGeneralService.java
  com.codegym.service.IGeneralService
 com/codegym/service/customer/CustomerService.java
  com.codegym.service.customer.CustomerService
-com/codegym/controller/CustomerServlet.java
- com.codegym.controller.CustomerServlet
+com/codegym/dao/customer/CustomerDAO.java
+ com.codegym.dao.customer.CustomerDAO
 com/codegym/dao/IGeneralDAO.java
  com.codegym.dao.IGeneralDAO
 com/codegym/dao/customer/ICustomerDAO.java
@@ -16,5 +16,5 @@ com/codegym/dao/SQLConnection.java
  com.codegym.dao.SQLConnection
 com/codegym/model/OrderDetail.java
  com.codegym.model.OrderDetail
-com/codegym/dao/customer/CustomerDAO.java
- com.codegym.dao.customer.CustomerDAO
+com/codegym/controller/CustomerServlet.java
+ com.codegym.controller.CustomerServlet

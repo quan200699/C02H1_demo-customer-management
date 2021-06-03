@@ -4,9 +4,12 @@ import com.codegym.model.Customer;
 import com.codegym.service.customer.CustomerService;
 import com.codegym.service.customer.ICustomerService;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,10 +20,10 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action == null){
+        if (action == null) {
             action = "";
         }
-        switch (action){
+        switch (action) {
             case "create":
                 createNewCustomerForm(request, response);
                 break;
@@ -39,7 +42,7 @@ public class CustomerServlet extends HttpServlet {
     private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Customer customer = customerService.findById(id);
-        if(customer == null){
+        if (customer == null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("error-404.jsp");
             dispatcher.forward(request, response);
         }
@@ -51,23 +54,23 @@ public class CustomerServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Customer customer = customerService.findById(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/customer/edit.jsp");
-        if(customer == null){
+        if (customer == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
         }
         request.setAttribute("customer", customer);
-        dispatcher.forward(request,response);
+        dispatcher.forward(request, response);
     }
 
     private void showListCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String query = request.getParameter("q");
         List<Customer> customers;
-        if(query == null || query.equals("")){
+        if (query == null || query.equals("")) {
             customers = customerService.findAll();
-        }else {
+        } else {
             customers = customerService.findAllCustomerByAddress(query);
         }
         String sort = request.getParameter("sort");
-        if(sort != null){
+        if (sort != null) {
             customers = customerService.sortAllCustomer();
         }
         request.setAttribute("customers", customers);
@@ -78,10 +81,10 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action == null){
+        if (action == null) {
             action = "";
         }
-        switch (action){
+        switch (action) {
             case "create":
                 createNewCustomer(request, response);
                 break;
@@ -95,7 +98,7 @@ public class CustomerServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String address = request.getParameter("address");
-        Customer customer = new Customer(id,name,address);
+        Customer customer = new Customer(id, name, address);
         customerService.update(id, customer);
         request.setAttribute("customer", customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/customer/edit.jsp");
@@ -112,8 +115,13 @@ public class CustomerServlet extends HttpServlet {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         Customer customer = new Customer(name, address);
-        customerService.create(customer);
+        boolean isInserted = customerService.create(customer);
+        if (!isInserted) {
+            request.setAttribute("message","Xảy ra lỗi khi tạo mới!");
+        }else {
+            request.setAttribute("message", "Tạo thành công!");
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/customer/create.jsp");
-        dispatcher.forward(request,response);
+        dispatcher.forward(request, response);
     }
 }
