@@ -1,14 +1,13 @@
 package com.codegym.controller;
 
 import com.codegym.model.Customer;
-import com.codegym.service.CustomerService;
-import com.codegym.service.ICustomerService;
+import com.codegym.service.customer.CustomerService;
+import com.codegym.service.customer.ICustomerService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "CustomerServlet", value = "/customers")
@@ -44,7 +43,7 @@ public class CustomerServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("error-404.jsp");
             dispatcher.forward(request, response);
         }
-        customerService.deleteById(id);
+        customerService.delete(id);
         response.sendRedirect("/customers");
     }
 
@@ -97,7 +96,7 @@ public class CustomerServlet extends HttpServlet {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         Customer customer = new Customer(id,name,address);
-        customerService.updateCustomerInfo(id, customer);
+        customerService.update(id, customer);
         request.setAttribute("customer", customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/customer/edit.jsp");
         dispatcher.forward(request, response);
@@ -113,7 +112,7 @@ public class CustomerServlet extends HttpServlet {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         Customer customer = new Customer(name, address);
-        customerService.createNewCustomer(customer);
+        customerService.create(customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/customer/create.jsp");
         dispatcher.forward(request,response);
     }
